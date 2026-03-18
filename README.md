@@ -52,3 +52,11 @@ npm start
 
 ## ⚕️ Disclaimer
 This is an AI-assisted tool for informational purposes only. Not a substitute for professional medical advice.
+
+## 👨‍💻 Developer Details
+**Sivaraj T**
+* **Role:** Full-Stack Developer & ML Logic
+* **Education:** B.Tech Information Technology, Velammal Engineering College
+* **Location:** Tiruvannamalai / Chennai, Tamil Nadu
+* **Skills:** Java, Python, Flask, SQL, MongoDB, C
+* **Achievements:** 2nd Place at VEC 24-Hour Hackathon (March 2026); 1500+ problems solved on SkillRack.
