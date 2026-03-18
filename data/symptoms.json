@@ -1,0 +1,270 @@
+{
+  "symptoms": {
+    "en": ["fever", "cough", "sore throat", "headache", "vomiting", "nausea", "chest pain", "breathing difficulty", "shortness of breath", "stomach pain", "abdominal pain", "fatigue", "tiredness", "weakness", "diarrhea", "rash", "fainting", "dizziness", "body ache", "runny nose", "cold", "sneezing", "back pain", "joint pain", "swelling"],
+    "ta": ["காய்ச்சல்", "இருமல்", "தொண்டை வலி", "தலைவலி", "வாந்தி", "குமட்டல்", "நெஞ்சு வலி", "மூச்சு திணறல்", "வயிற்று வலி", "சோர்வு", "களைப்பு", "வயிற்றுப்போக்கு", "தோல் அரிப்பு", "மயக்கம்", "தலைச்சுற்றல்", "உடல் வலி", "சளி", "தும்மல்", "முதுகு வலி", "மூட்டு வலி"],
+    "hi": ["बुखार", "खांसी", "गले में दर्द", "सिरदर्द", "उल्टी", "मतली", "सीने में दर्द", "सांस लेने में तकलीफ", "पेट दर्द", "थकान", "कमजोरी", "दस्त", "चकत्ते", "बेहोशी", "चक्कर", "बदन दर्द", "जुकाम", "छींक", "कमर दर्द", "जोड़ों का दर्द"]
+  },
+  "symptomMap": {
+    "ta": {
+      "காய்ச்சல்": "fever",
+      "இருமல்": "cough",
+      "தொண்டை வலி": "sore throat",
+      "தலைவலி": "headache",
+      "வாந்தி": "vomiting",
+      "குமட்டல்": "nausea",
+      "நெஞ்சு வலி": "chest pain",
+      "மூச்சு திணறல்": "breathing difficulty",
+      "வயிற்று வலி": "stomach pain",
+      "சோர்வு": "fatigue",
+      "களைப்பு": "fatigue",
+      "வயிற்றுப்போக்கு": "diarrhea",
+      "தோல் அரிப்பு": "rash",
+      "மயக்கம்": "fainting",
+      "தலைச்சுற்றல்": "dizziness",
+      "உடல் வலி": "body ache",
+      "சளி": "cold",
+      "தும்மல்": "sneezing",
+      "முதுகு வலி": "back pain",
+      "மூட்டு வலி": "joint pain"
+    },
+    "hi": {
+      "बुखार": "fever",
+      "खांसी": "cough",
+      "गले में दर्द": "sore throat",
+      "सिरदर्द": "headache",
+      "उल्टी": "vomiting",
+      "मतली": "nausea",
+      "सीने में दर्द": "chest pain",
+      "सांस लेने में तकलीफ": "breathing difficulty",
+      "पेट दर्द": "stomach pain",
+      "थकान": "fatigue",
+      "कमजोरी": "weakness",
+      "दस्त": "diarrhea",
+      "चकत्ते": "rash",
+      "बेहोशी": "fainting",
+      "चक्कर": "dizziness",
+      "बदन दर्द": "body ache",
+      "जुकाम": "cold",
+      "छींक": "sneezing",
+      "कमर दर्द": "back pain",
+      "जोड़ों का दर्द": "joint pain"
+    }
+  },
+  "diagnosisRules": [
+    {
+      "id": "heart_emergency",
+      "symptoms": ["chest pain", "breathing difficulty"],
+      "matchCount": 2,
+      "condition": {
+        "en": "Possible Cardiac Emergency",
+        "ta": "இதய அவசரநிலை",
+        "hi": "हृदय आपातकाल"
+      },
+      "risk": "emergency",
+      "advice": {
+        "en": "⚠️ WARNING: These symptoms may indicate a heart attack or serious cardiac event. Go to the nearest emergency room IMMEDIATELY or call emergency services (108).",
+        "ta": "⚠️ எச்சரிக்கை: இந்த அறிகுறிகள் மாரடைப்பு அல்லது தீவிர இதய நோயை சுட்டிக்காட்டலாம். உடனடியாக அருகிலுள்ள மருத்துவமனைக்கு செல்லுங்கள் அல்லது 108 என்ற அவசர சேவையை அழையுங்கள்.",
+        "hi": "⚠️ चेतावनी: ये लक्षण दिल का दौरा या गंभीर हृदय रोग का संकेत हो सकते हैं। तुरंत नजदीकी आपातकालीन कक्ष जाएं या आपातकालीन सेवाओं (108) को कॉल करें।"
+      },
+      "priority": 1
+    },
+    {
+      "id": "fainting_emergency",
+      "symptoms": ["fainting", "chest pain"],
+      "matchCount": 1,
+      "condition": {
+        "en": "Medical Emergency – Fainting",
+        "ta": "மருத்துவ அவசரநிலை – மயக்கம்",
+        "hi": "चिकित्सा आपातकाल – बेहोशी"
+      },
+      "risk": "emergency",
+      "advice": {
+        "en": "⚠️ Fainting or loss of consciousness requires immediate medical attention. Call 108 or go to the nearest hospital immediately.",
+        "ta": "⚠️ மயக்கம் அல்லது சுயநினைவு இழப்புக்கு உடனடி மருத்துவ கவனிப்பு தேவை. 108 என்று அழைக்கவும் அல்லது உடனடியாக அருகிலுள்ள மருத்துவமனைக்கு செல்லுங்கள்.",
+        "hi": "⚠️ बेहोशी या चेतना की हानि के लिए तत्काल चिकित्सा ध्यान की आवश्यकता है। 108 पर कॉल करें या तुरंत नजदीकी अस्पताल जाएं।"
+      },
+      "priority": 2,
+      "emergencySymptoms": ["fainting"]
+    },
+    {
+      "id": "flu",
+      "symptoms": ["fever", "cough", "sore throat"],
+      "matchCount": 2,
+      "condition": {
+        "en": "Possible Influenza (Flu)",
+        "ta": "இன்ஃப்ளூயன்சா (காய்ச்சல்) சாத்தியம்",
+        "hi": "संभावित इन्फ्लूएंजा (फ्लू)"
+      },
+      "risk": "medium",
+      "advice": {
+        "en": "You may have flu symptoms. Rest well, drink plenty of fluids, and take paracetamol for fever. If symptoms persist beyond 3 days or worsen, please consult a doctor.",
+        "ta": "உங்களுக்கு காய்ச்சல் அறிகுறிகள் இருக்கலாம். நன்றாக ஓய்வெடுங்கள், அதிகமான திரவங்கள் குடிக்கவும், காய்ச்சலுக்கு பாராசிட்டமால் எடுக்கவும். அறிகுறிகள் 3 நாட்களுக்கும் மேல் தொடர்ந்தால் மருத்துவரை அணுகவும்.",
+        "hi": "आपको फ्लू के लक्षण हो सकते हैं। अच्छी तरह आराम करें, खूब पानी पिएं और बुखार के लिए पैरासिटामोल लें। यदि लक्षण 3 दिनों से अधिक समय तक बने रहें या बिगड़ें तो डॉक्टर से परामर्श करें।"
+      },
+      "priority": 3
+    },
+    {
+      "id": "food_poisoning",
+      "symptoms": ["vomiting", "stomach pain", "diarrhea", "nausea"],
+      "matchCount": 2,
+      "condition": {
+        "en": "Possible Food Poisoning",
+        "ta": "உணவு விஷமாக்கல் சாத்தியம்",
+        "hi": "संभावित खाद्य विषाक्तता"
+      },
+      "risk": "medium",
+      "advice": {
+        "en": "You may have food poisoning. Stay hydrated with ORS (Oral Rehydration Solution). Avoid solid food for a few hours. If vomiting is severe or blood is present, visit a doctor immediately.",
+        "ta": "உங்களுக்கு உணவு விஷமாக்கல் இருக்கலாம். ORS (வாய்வழி நீர்ச்சத்து கரைசல்) மூலம் நீரேற்றமாக இருங்கள். சில மணி நேரம் திட உணவை தவிர்க்கவும். வாந்தி கடுமையாக இருந்தால் உடனடியாக மருத்துவரை சந்திக்கவும்.",
+        "hi": "आपको खाद्य विषाक्तता हो सकती है। ORS (ओरल रिहाइड्रेशन सॉल्यूशन) से हाइड्रेटेड रहें। कुछ घंटों के लिए ठोस भोजन से बचें। यदि उल्टी गंभीर है तो तुरंत डॉक्टर से मिलें।"
+      },
+      "priority": 4
+    },
+    {
+      "id": "migraine",
+      "symptoms": ["headache", "fatigue", "dizziness", "nausea"],
+      "matchCount": 2,
+      "condition": {
+        "en": "Possible Migraine or Stress",
+        "ta": "தலைவலி அல்லது மன அழுத்தம் சாத்தியம்",
+        "hi": "संभावित माइग्रेन या तनाव"
+      },
+      "risk": "low",
+      "advice": {
+        "en": "You may be experiencing a migraine or stress-related headache. Rest in a dark, quiet room. Stay hydrated. Over-the-counter pain relief may help. If headaches are frequent or severe, consult a doctor.",
+        "ta": "உங்களுக்கு தலைவலி அல்லது மன அழுத்தம் தொடர்பான தலைவலி இருக்கலாம். இருண்ட, அமைதியான அறையில் ஓய்வெடுங்கள். தலைவலி அடிக்கடி அல்லது கடுமையாக இருந்தால் மருத்துவரை ஆலோசிக்கவும்.",
+        "hi": "आपको माइग्रेन या तनाव से संबंधित सिरदर्द हो सकता है। अंधेरे, शांत कमरे में आराम करें। पर्याप्त पानी पिएं। यदि सिरदर्द बार-बार या गंभीर हो तो डॉक्टर से मिलें।"
+      },
+      "priority": 5
+    },
+    {
+      "id": "cold",
+      "symptoms": ["cold", "sneezing", "runny nose", "cough", "fever"],
+      "matchCount": 2,
+      "condition": {
+        "en": "Common Cold",
+        "ta": "சாதாரண சளி",
+        "hi": "सामान्य जुकाम"
+      },
+      "risk": "low",
+      "advice": {
+        "en": "You likely have a common cold. Rest, drink warm fluids, and use steam inhalation for congestion. Over-the-counter cold medication may help. Should resolve in 7-10 days.",
+        "ta": "உங்களுக்கு சாதாரண சளி இருக்கலாம். ஓய்வெடுங்கள், வெதுவெதுப்பான திரவங்கள் குடிக்கவும், நெரிசலுக்கு ஆவி இழுக்கவும். 7-10 நாட்களில் குணமாகும்.",
+        "hi": "आपको सामान्य जुकाम हो सकता है। आराम करें, गर्म तरल पदार्थ पिएं और भाप लें। 7-10 दिनों में ठीक हो जाना चाहिए।"
+      },
+      "priority": 6
+    },
+    {
+      "id": "body_pain",
+      "symptoms": ["body ache", "fatigue", "weakness", "fever"],
+      "matchCount": 2,
+      "condition": {
+        "en": "Possible Viral Fever / Body Pain",
+        "ta": "வைரஸ் காய்ச்சல் / உடல் வலி சாத்தியம்",
+        "hi": "संभावित वायरल बुखार / शरीर दर्द"
+      },
+      "risk": "low",
+      "advice": {
+        "en": "You may have a viral fever or general body pain. Rest, stay hydrated, take paracetamol, and apply warm compress on aching areas. Consult doctor if fever exceeds 103°F or lasts more than 3 days.",
+        "ta": "உங்களுக்கு வைரஸ் காய்ச்சல் அல்லது பொது உடல் வலி இருக்கலாம். ஓய்வெடுங்கள், நீரேற்றமாக இருங்கள், பாராசிட்டமால் எடுக்கவும். காய்ச்சல் 103°F ஐ தாண்டினால் மருத்துவரை சந்திக்கவும்.",
+        "hi": "आपको वायरल बुखार या सामान्य शरीर दर्द हो सकता है। आराम करें, हाइड्रेटेड रहें, पैरासिटामोल लें। यदि बुखार 103°F से अधिक हो तो डॉक्टर से मिलें।"
+      },
+      "priority": 7
+    },
+    {
+      "id": "breathing_issue",
+      "symptoms": ["breathing difficulty", "shortness of breath", "cough"],
+      "matchCount": 2,
+      "condition": {
+        "en": "Respiratory Issue",
+        "ta": "சுவாச பிரச்சினை",
+        "hi": "श्वसन समस्या"
+      },
+      "risk": "high",
+      "advice": {
+        "en": "Breathing difficulty is serious. Sit upright, stay calm. If you have an inhaler, use it. Seek medical attention promptly — especially if lips or fingers turn blue.",
+        "ta": "மூச்சு திணறல் தீவிரமானது. நேராக உட்காருங்கள், அமைதியாக இருங்கள். இன்ஹேலர் இருந்தால் பயன்படுத்துங்கள். உதடுகள் அல்லது விரல்கள் நீலமாக மாறினால் உடனடியாக மருத்துவ உதவி பெறுங்கள்.",
+        "hi": "सांस लेने में कठिनाई गंभीर है। सीधे बैठें, शांत रहें। यदि इनहेलर है तो उपयोग करें। यदि होंठ या उंगलियां नीली हो जाएं तो तुरंत चिकित्सा सहायता लें।"
+      },
+      "priority": 2
+    }
+  ],
+  "emergencySymptoms": ["chest pain", "breathing difficulty", "fainting", "shortness of breath"],
+  "ui": {
+    "en": {
+      "title": "HealthGuard AI",
+      "subtitle": "Voice-Based Health Diagnosis Assistant",
+      "selectLanguage": "Select Language",
+      "speakSymptoms": "Speak Your Symptoms",
+      "listening": "Listening...",
+      "tapToSpeak": "Tap to Speak",
+      "detectedSymptoms": "Detected Symptoms",
+      "riskLevel": "Risk Level",
+      "diagnosis": "Diagnosis",
+      "advice": "Medical Advice",
+      "nearbyHospitals": "Nearby Hospitals",
+      "emergency": "⚠️ EMERGENCY ALERT",
+      "emergencyMsg": "Possible medical emergency detected. Please visit the nearest hospital IMMEDIATELY or call 108.",
+      "low": "Low Risk",
+      "medium": "Medium Risk",
+      "high": "High Risk",
+      "emergency_risk": "EMERGENCY",
+      "noSymptoms": "No symptoms detected. Please speak your symptoms.",
+      "placeholder": "Your spoken symptoms will appear here...",
+      "findHospitals": "Find Nearby Hospitals",
+      "callEmergency": "Call 108 Emergency",
+      "orSpeak": "or type your symptoms",
+      "analyzeBtn": "Analyze Symptoms"
+    },
+    "ta": {
+      "title": "HealthGuard AI",
+      "subtitle": "குரல் அடிப்படையிலான சுகாதார நோயறிதல் உதவியாளர்",
+      "selectLanguage": "மொழியைத் தேர்ந்தெடுக்கவும்",
+      "speakSymptoms": "உங்கள் அறிகுறிகளை பேசுங்கள்",
+      "listening": "கேட்கிறோம்...",
+      "tapToSpeak": "பேச தட்டவும்",
+      "detectedSymptoms": "கண்டறியப்பட்ட அறிகுறிகள்",
+      "riskLevel": "ஆபத்து நிலை",
+      "diagnosis": "நோயறிதல்",
+      "advice": "மருத்துவ ஆலோசனை",
+      "nearbyHospitals": "அருகிலுள்ள மருத்துவமனைகள்",
+      "emergency": "⚠️ அவசரகால எச்சரிக்கை",
+      "emergencyMsg": "மருத்துவ அவசரநிலை கண்டறியப்பட்டது. உடனடியாக அருகிலுள்ள மருத்துவமனைக்கு செல்லுங்கள் அல்லது 108 என்று அழையுங்கள்.",
+      "low": "குறைந்த ஆபத்து",
+      "medium": "மிதமான ஆபத்து",
+      "high": "அதிக ஆபத்து",
+      "emergency_risk": "அவசரநிலை",
+      "noSymptoms": "அறிகுறிகள் கண்டறியப்படவில்லை. உங்கள் அறிகுறிகளை பேசுங்கள்.",
+      "placeholder": "உங்கள் பேசிய அறிகுறிகள் இங்கே தோன்றும்...",
+      "findHospitals": "அருகிலுள்ள மருத்துவமனைகளை கண்டறியுங்கள்",
+      "callEmergency": "108 அழைக்கவும்",
+      "orSpeak": "அல்லது அறிகுறிகளை தட்டச்சு செய்யுங்கள்",
+      "analyzeBtn": "அறிகுறிகளை பகுப்பாய்வு செய்யுங்கள்"
+    },
+    "hi": {
+      "title": "HealthGuard AI",
+      "subtitle": "आवाज़-आधारित स्वास्थ्य निदान सहायक",
+      "selectLanguage": "भाषा चुनें",
+      "speakSymptoms": "अपने लक्षण बोलें",
+      "listening": "सुन रहे हैं...",
+      "tapToSpeak": "बोलने के लिए टैप करें",
+      "detectedSymptoms": "पहचाने गए लक्षण",
+      "riskLevel": "जोखिम स्तर",
+      "diagnosis": "निदान",
+      "advice": "चिकित्सा सलाह",
+      "nearbyHospitals": "पास के अस्पताल",
+      "emergency": "⚠️ आपातकालीन अलर्ट",
+      "emergencyMsg": "संभावित चिकित्सा आपातकाल पता चला। तुरंत निकटतम अस्पताल जाएं या 108 पर कॉल करें।",
+      "low": "कम जोखिम",
+      "medium": "मध्यम जोखिम",
+      "high": "उच्च जोखिम",
+      "emergency_risk": "आपातकाल",
+      "noSymptoms": "कोई लक्षण नहीं मिले। कृपया अपने लक्षण बोलें।",
+      "placeholder": "आपके बोले गए लक्षण यहाँ दिखेंगे...",
+      "findHospitals": "पास के अस्पताल खोजें",
+      "callEmergency": "108 कॉल करें",
+      "orSpeak": "या अपने लक्षण टाइप करें",
+      "analyzeBtn": "लक्षणों का विश्लेषण करें"
+    }
+  }
+}

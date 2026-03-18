@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HealthGuard AI — Medical Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- LOADING OVERLAY -->
+<div id="loadingOverlay" class="loading-overlay hidden">
+  <div class="loading-card">
+    <div class="loading-pulse">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring delay-1"></div>
+      <div class="pulse-ring delay-2"></div>
+      <div class="pulse-icon">🧬</div>
+    </div>
+    <p class="loading-text">Analyzing symptoms with AI...</p>
+    <div class="loading-bar"><div class="loading-fill"></div></div>
+  </div>
+</div>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="8" fill="url(#logoGrad)"/>
+          <path d="M14 6v16M6 14h16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="28" y2="28">
+              <stop stop-color="#0EA5E9"/>
+              <stop offset="1" stop-color="#06B6D4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div>
+        <span class="logo-name">HealthGuard <span class="logo-ai">AI</span></span>
+        <span class="logo-badge">v4.1</span>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#" class="nav-link active" data-section="dashboard">Dashboard</a>
+      <a href="#" class="nav-link" data-section="diagnose">Diagnose</a>
+      <a href="#" class="nav-link" data-section="history">History</a>
+    </div>
+
+    <div class="nav-actions">
+      <div id="apiStatusDot" class="api-status-dot" title="API Status">
+        <span class="dot"></span>
+        <span class="status-label">Online</span>
+      </div>
+      <button class="icon-btn" id="langToggle" title="Toggle Language">
+        <span id="langLabel">EN</span>
+      </button>
+      <button class="icon-btn" id="darkToggle" title="Toggle Theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <div class="user-avatar">Dr</div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+  <!-- SECTION: DASHBOARD -->
+  <section id="dashSection" class="section active">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Clinical Dashboard</h2>
+        <p class="section-sub">AI-powered symptom analysis &amp; disease prediction</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" id="goToDiagnose">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          New Diagnosis
+        </button>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-icon teal">🎯</div>
+        <div class="stat-info">
+          <span class="stat-value">94.7%</span>
+          <span class="stat-label">Model Accuracy</span>
+        </div>
+        <div class="stat-trend up">↑ 2.1%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue">🦠</div>
+        <div class="stat-info">
+          <span class="stat-value">42</span>
+          <span class="stat-label">Diseases Tracked</span>
+        </div>
+        <div class="stat-trend neutral">Updated</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple">📊</div>
+        <div class="stat-info">
+          <span class="stat-value">1.2M</span>
+          <span class="stat-label">Training Records</span>
+        </div>
+        <div class="stat-trend up">↑ Synthetic</div>
+      </div>
+      <div class="stat-card" id="predCountCard">
+        <div class="stat-icon orange">📋</div>
+        <div class="stat-info">
+          <span class="stat-value" id="totalPredCount">0</span>
+          <span class="stat-label">Your Predictions</span>
+        </div>
+        <div class="stat-trend neutral">Session</div>
+      </div>
+    </div>
+
+    <!-- Last Result Restored from localStorage -->
+    <div id="dashLastResult" class="hidden" style="margin-bottom:20px">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">📊 Last Diagnosis</h3>
+          <span class="ai-badge" style="background:#DCFCE7;color:#059669">Restored</span>
+        </div>
+        <div id="dashLastResultContent"></div>
+      </div>
+    </div>
+
+    <div class="quick-cta">
+      <div class="cta-content">
+        <div class="cta-icon">🩺</div>
+        <div>
+          <h3>Ready to analyze your symptoms?</h3>
+          <p>Speak or type symptoms. AI Doctor asks 10 follow-up questions then delivers your accurate diagnosis.</p>
+        </div>
+        <button class="btn btn-primary btn-lg" id="quickDiagnoseBtn">Start Diagnosis →</button>
+      </div>
+    </div>
+
+    <div class="card" id="recentHistoryCard">
+      <div class="card-header">
+        <h3 class="card-title">Recent Predictions</h3>
+        <button class="text-btn" id="viewAllHistory">View all →</button>
+      </div>
+      <div id="dashHistoryList" class="history-mini-list">
+        <div class="empty-state-mini">No predictions yet. Start a diagnosis above.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: DIAGNOSE — 3-step embedded flow -->
+  <section id="diagnoseSection" class="section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title" id="diagnoseSectionTitle">Symptom Analysis</h2>
+        <p class="section-sub" id="diagnoseSectionSub">Speak or type symptoms — AI Doctor guides you through a medical interview</p>
+      </div>
+      <button class="btn btn-ghost" id="resetDiagnoseBtn" style="display:none">↺ Start Over</button>
+    </div>
+
+    <div id="diagnosisFlow">
+
+      <!-- STEP 0: Input -->
+      <div id="stepInput" class="diag-step">
+        <div class="diagnose-grid">
+          <div class="input-panel">
+
+            <!-- ❤️ Heart Rate Sensor Card -->
+            <div class="card hr-sensor-card" id="heartRateCard">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <span class="hr-icon-pulse">❤️</span>
+                  <span id="hrCardTitle">Heart Rate Sensor</span>
+                </h3>
+                <div class="hr-status-pill" id="hrStatusPill">
+                  <span class="hr-dot"></span>
+                  <span id="hrStatusLabel">Ready</span>
+                </div>
+              </div>
+
+              <!-- Idle State -->
+              <div id="hrIdleState" class="hr-idle-state">
+                <div class="hr-instruction">
+                  <div class="hr-camera-icon">📷</div>
+                  <div class="hr-instruction-text">
+                    <p id="hrInstructionMain">Place your finger gently over your camera lens</p>
+                    <p class="hr-instruction-sub" id="hrInstructionSub">The system will analyze blood flow to calculate your heart rate using rPPG technology</p>
+                  </div>
+                </div>
+                <div class="hr-action-row">
+                  <button class="btn btn-primary hr-start-btn" id="hrStartBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+                    <span id="hrStartBtnLabel">Start Heart Rate Scan</span>
+                  </button>
+                  <button class="btn btn-ghost hr-demo-btn" id="hrDemoBtn" title="Test with simulated data">
+                    <span id="hrDemoBtnLabel">Demo Mode</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Scanning State -->
+              <div id="hrScanningState" class="hr-scanning-state hidden">
+                <div class="hr-camera-preview">
+                  <video id="hrVideoPreview" class="hr-video" autoplay muted playsinline></video>
+                  <div class="hr-video-overlay">
+                    <div class="hr-scan-ring"></div>
+                    <div class="hr-scan-ring delay-1"></div>
+                    <div class="hr-scan-ring delay-2"></div>
+                  </div>
+                  <div class="hr-video-label" id="hrVideoLabel">🔴 Recording...</div>
+                </div>
+                <div class="hr-progress-section">
+                  <div class="hr-progress-info">
+                    <span id="hrProgressLabel">Analyzing pulse signal...</span>
+                    <span id="hrProgressSec">15s remaining</span>
+                  </div>
+                  <div class="hr-progress-bar">
+                    <div class="hr-progress-fill" id="hrProgressFill"></div>
+                  </div>
+                </div>
+                <div class="hr-waveform" id="hrWaveform">
+                  <canvas id="hrWaveformCanvas" height="50"></canvas>
+                </div>
+                <button class="btn btn-ghost hr-cancel-btn" id="hrCancelBtn">✕ Cancel</button>
+              </div>
+
+              <!-- Result State -->
+              <div id="hrResultState" class="hr-result-state hidden">
+                <div class="hr-result-display">
+                  <div class="hr-bpm-circle" id="hrBpmCircle">
+                    <div class="hr-bpm-value" id="hrBpmValue">--</div>
+                    <div class="hr-bpm-unit">BPM</div>
+                    <div class="hr-bpm-pulse"></div>
+                  </div>
+                  <div class="hr-result-details">
+                    <div class="hr-risk-badge" id="hrRiskBadge">Normal</div>
+                    <div class="hr-category" id="hrCategory">Normal Resting Rate</div>
+                    <div class="hr-quality-row">
+                      <span id="hrQualityLabel">Signal Quality:</span>
+                      <span class="hr-quality-value" id="hrQualityValue">Good</span>
+                    </div>
+                    <p class="hr-message" id="hrMessage"></p>
+                  </div>
+                </div>
+                <div class="hr-result-actions">
+                  <button class="btn btn-ghost hr-remeasure-btn" id="hrRemeasureBtn">
+                    <span id="hrRemeasureLabel">↺ Remeasure</span>
+                  </button>
+                  <div class="hr-included-badge" id="hrIncludedBadge">
+                    ✅ <span id="hrIncludedLabel">Included in diagnosis</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Heart Rate Sensor Card -->
+
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Patient Information</h3></div>
+              <div class="patient-info-grid">
+                <div class="form-group">
+                  <label class="form-label">Age</label>
+                  <input type="number" id="patientAge" class="form-input" placeholder="25" min="1" max="120">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Gender</label>
+                  <select id="patientGender" class="form-input">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Severity <span id="severityVal" class="severity-badge">5</span></label>
+                <input type="range" id="severitySlider" class="severity-slider" min="1" max="10" value="5">
+                <div class="severity-labels"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Describe Symptoms</h3>
+                <div class="input-tabs">
+                  <button class="tab-btn active" data-tab="text">Text</button>
+                  <button class="tab-btn" data-tab="chips">Quick Select</button>
+                </div>
+              </div>
+
+              <div id="tabText" class="tab-content active">
+                <div class="symptom-input-wrap">
+                  <textarea id="symptomText" class="symptom-textarea"
+                    placeholder="Describe symptoms in English or Tamil... e.g. I have fever and headache for two days"
+                    rows="3"></textarea>
+                  <div class="input-actions">
+                    <button class="icon-btn-sm voice-btn" id="voiceBtn" title="Speak symptoms">🎙️</button>
+                    <span id="voiceStatus" class="voice-status"></span>
+                  </div>
+                </div>
+                <div id="autocompleteDropdown" class="autocomplete-dropdown hidden"></div>
+                <div id="selectedChips" class="selected-chips"></div>
+              </div>
+
+              <div id="tabChips" class="tab-content">
+                <div class="symptom-grid-select" id="symptomQuickGrid"></div>
+              </div>
+
+              <!-- Big Voice Button -->
+              <div class="voice-cta-row">
+                <button class="voice-large-btn" id="voiceLargeBtn">
+                  <span class="vlb-icon">🎙️</span>
+                  <span class="vlb-label" id="voiceLargeLabel">Tap to Speak</span>
+                  <span class="vlb-sub" id="voiceLargeSub">Speech auto-starts interview</span>
+                </button>
+              </div>
+
+              <button class="btn btn-primary btn-full" id="startInterviewFromInput" style="margin-top:12px">
+                <span id="startInterviewBtnText">Begin Medical Interview →</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="result-panel">
+            <div class="how-it-works card">
+              <div class="card-header"><h3 class="card-title">How It Works</h3></div>
+              <div class="how-steps">
+                <div class="how-step">
+                  <div class="how-step-num">1</div>
+                  <div>
+                    <strong>Speak or type symptoms</strong>
+                    <p>Use microphone or type in English / Tamil</p>
+                  </div>
+                </div>
+                <div class="how-step">
+                  <div class="how-step-num">2</div>
+                  <div>
+                    <strong>AI Doctor Interview</strong>
+                    <p>10 targeted follow-up questions build a complete picture</p>
+                  </div>
+                </div>
+                <div class="how-step">
+                  <div class="how-step-num">3</div>
+                  <div>
+                    <strong>Accurate Diagnosis</strong>
+                    <p>AI analyzes all data, returns risk level and medical advice</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 1: AI Doctor Chat Interview -->
+      <div id="stepInterview" class="diag-step hidden">
+        <div class="interview-layout">
+
+          <div class="chat-panel">
+            <div class="chat-header">
+              <div class="doctor-avatar-wrap">
+                <div class="doctor-pulse"></div>
+                <div class="doctor-avatar-lg">👨‍⚕️</div>
+              </div>
+              <div class="chat-header-info">
+                <h4>Dr. HealthGuard AI</h4>
+                <p id="chatDoctorStatus">Here to help you</p>
+              </div>
+              <div class="interview-badge-wrap" style="display:none">
+                <span class="interview-progress-badge" id="interviewProgressBadge">Q 1 / 10</span>
+              </div>
+            </div>
+
+            <div class="chat-progress">
+              <span class="progress-label" id="progressLabel" style="display:none">Gathering details...</span>
+              <div class="progress-bar-wrap" style="flex:1">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+              </div>
+              <span class="progress-pct" id="progressPct" style="font-size:11px;color:var(--text3)">0%</span>
+            </div>
+
+            <div class="chat-messages" id="chatMessages"></div>
+
+            <div class="chat-input-area">
+              <div id="quickAnswerBtns" class="quick-answers"></div>
+              <div class="chat-input-row">
+                <textarea id="chatInputField" class="chat-input" rows="1" placeholder="Type your answer..."></textarea>
+                <button class="chat-send-btn" id="chatSendBtn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="interview-sidebar">
+            <div class="detected-card">
+              <h4>🔍 Detected Symptoms</h4>
+              <div class="detected-tags" id="interviewDetectedTags">
+                <span style="font-size:13px;color:var(--text3)">Processing...</span>
+              </div>
+            </div>
+            <div class="answers-card">
+              <h4>📋 Patient Data</h4>
+              <div id="collectedAnswersDisplay">
+                <div class="answers-empty">Answers will appear here</div>
+              </div>
+            </div>
+            <div id="interviewSideActions">
+              <button class="btn btn-ghost" id="skipInterviewBtn" style="width:100%">⚡ Skip to Quick Analysis</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Results -->
+      <div id="stepResults" class="diag-step hidden">
+        <div class="result-flow-header">
+          <div class="result-flow-meta" id="resultFlowMeta"></div>
+          <div class="result-flow-actions">
+            <button class="btn btn-outline" id="downloadPdfBtn">📄 Download Report</button>
+            <button class="btn btn-ghost" id="saveHistoryBtn">💾 Save to History</button>
+            <button class="btn btn-primary" id="newDiagnosisBtn">+ New Diagnosis</button>
+          </div>
+        </div>
+
+        <div class="diagnose-grid">
+          <div class="input-panel">
+            <div class="card result-card" id="primaryResultCard">
+              <div class="result-header">
+                <div class="risk-badge" id="riskBadge">Low Risk</div>
+                <div class="confidence-pill" id="confidencePill">High Confidence</div>
+              </div>
+              <h3 class="diagnosis-title" id="diagnosisTitle">—</h3>
+              <div class="detected-symptoms" id="detectedSymptoms"></div>
+
+              <!-- Heart Rate Vitals (shown if measured) -->
+              <div id="resultHeartRateCard" class="result-hr-vitals hidden">
+                <div class="result-hr-icon">❤️</div>
+                <div class="result-hr-info">
+                  <span class="result-hr-label" id="resultHrLabel">Heart Rate</span>
+                  <span class="result-hr-bpm" id="resultHrBpm">-- BPM</span>
+                  <span class="result-hr-risk" id="resultHrRisk"></span>
+                </div>
+              </div>
+
+              <div class="risk-meter">
+                <div class="risk-labels">
+                  <span>Low</span><span>Moderate</span><span>High</span><span>Emergency</span>
+                </div>
+                <div class="risk-track">
+                  <div class="risk-fill" id="riskFill"></div>
+                </div>
+              </div>
+
+              <div id="emergencyBanner" class="emergency-banner hidden">
+                <span class="em-icon">🚨</span>
+                <div><strong>Emergency Alert</strong><p id="emergencyText"></p></div>
+              </div>
+            </div>
+
+            <div class="card" id="patientSummaryCard" style="display:none">
+              <div class="card-header"><h3 class="card-title">📋 Interview Summary</h3></div>
+              <div class="report-grid" id="patientSummaryGrid"></div>
+            </div>
+
+            <div class="card" id="medAdviceCard" style="display:none">
+              <div class="card-header"><h3 class="card-title">💊 Medical Advice</h3></div>
+              <div id="medAdviceText" style="font-size:14px;line-height:1.7;color:var(--text);padding:4px 0"></div>
+            </div>
+          </div>
+
+          <div class="result-panel">
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Disease Probability</h3></div>
+              <div class="chart-wrap"><canvas id="diseaseChart" height="180"></canvas></div>
+            </div>
+
+            <div class="card ai-explain-card" id="aiExplainCard">
+              <div class="card-header">
+                <h3 class="card-title">🤖 AI Clinical Explanation</h3>
+                <span class="ai-badge">AI Generated</span>
+              </div>
+              <div id="aiExplainContent" class="ai-explain-content">
+                <div class="explain-loading"><div class="explain-spinner"></div><span>Generating...</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden legacy refs for PDF generation compatibility -->
+        <div id="resultContent" style="display:none"></div>
+        <div id="resultPlaceholder" style="display:none"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: HISTORY -->
+  <section id="historySection" class="section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Prediction History</h2>
+        <p class="section-sub">Your saved symptom analyses</p>
+      </div>
+      <button class="btn btn-danger-ghost" id="clearHistoryBtn">Clear All</button>
+    </div>
+    <div id="historyList" class="history-list">
+      <div class="empty-state">
+        <div class="empty-icon">📋</div>
+        <h3>No history yet</h3>
+        <p>Completed predictions will appear here.</p>
+        <button class="btn btn-primary" id="historyStartDiag">Start Diagnosis</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- PDF MODAL -->
+<div id="pdfModal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Download Medical Report</h3>
+      <button class="modal-close" id="closePdfModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>Your AI medical report is ready. It includes:</p>
+      <ul class="report-features">
+        <li>✅ Patient information &amp; symptoms</li>
+        <li>✅ Primary diagnosis &amp; confidence score</li>
+        <li>✅ Disease probability chart</li>
+        <li>✅ AI clinical explanation</li>
+        <li>✅ Medical advice &amp; precautions</li>
+        <li>✅ Interview questionnaire data</li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="cancelPdfBtn">Cancel</button>
+      <button class="btn btn-primary" id="confirmPdfBtn">📄 Generate PDF</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

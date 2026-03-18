@@ -1,0 +1,18 @@
+{
+  "name": "healthguard-ai",
+  "version": "4.1.0",
+  "description": "HealthGuard AI - Professional Medical Intelligence Platform",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
